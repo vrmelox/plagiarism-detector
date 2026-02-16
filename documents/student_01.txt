@@ -1,0 +1,6 @@
+L'intelligence artificielle transforme notre société de manière profonde. Les algorithmes 
+d'apprentissage automatique permettent désormais de résoudre des problèmes complexes dans 
+des domaines variés. La médecine bénéficie de diagnostics plus précis grâce aux réseaux 
+de neurones. Les véhicules autonomes promettent de révolutionner le transport. Cependant, 
+ces avancées soulèvent des questions éthiques importantes concernant la vie privée et 
+l'emploi. Il est crucial de développer ces technologies de façon responsable.

@@ -1,0 +1,6 @@
+L'intelligence artificielle transforme notre monde de façon importante. Les algorithmes 
+d'apprentissage machine permettent aujourd'hui de résoudre des problèmes difficiles dans 
+plusieurs domaines. La médecine profite de diagnostics plus exacts grâce aux réseaux 
+neuronaux. Les voitures autonomes pourraient révolutionner les transports. Toutefois, 
+ces progrès posent des questions éthiques majeures sur la vie privée et le travail. 
+Il est essentiel de développer ces technologies de manière responsable.
