@@ -3,4 +3,4 @@ d'apprentissage automatique permettent désormais de résoudre des problèmes co
 des domaines variés. La médecine bénéficie de diagnostics plus précis grâce aux réseaux 
 de neurones. Les véhicules autonomes promettent de révolutionner le transport. Cependant, 
 ces avancées soulèvent des questions éthiques importantes concernant la vie privée et 
-l'emploi. Il est crucial de développer ces technologies de façon responsable.
+l'emploi. Il est                 crucial de développer ces technologies de façon responsable.
