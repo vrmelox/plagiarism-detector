@@ -34,6 +34,26 @@ def tokenize(text):
     """
     return text.split()
 
+def build_vocabulary(documents):
+    """
+    Construit le vocabulaire complet à partir de tous les documents
+    
+    Paramètres:
+        documents: list of str - liste de textes
+    
+    Retour:
+        dict - {mot: index} pour chaque mot unique
+    
+    Exemple:
+        docs = ["le chat mange", "le chien mange"]
+        vocab = {"le": 0, "chat": 1, "chien": 2, "mange": 3}
+    """
+    vocabulary = {}
+    for x in documents:
+        for value, index in enumerate(x):
+            if vocabulary.get(value, 0) == 0:
+                vocabulary.update({value: index}) 
+
 
 text = "L'Intelligence Artificielle (IA) est fascinante! Elle transforme notre monde."
 red = tokenize(preprocess_text(text))
