@@ -18,12 +18,26 @@ def preprocess_text(text):
         str - texte nettoyé
     """
     text_clean = text.lower()
-    text_clean = re.sub(r"([,;.\"<>:?«»=]+)|[ \t]{2,}", lambda m : "" if m.group(1) else " " , text_clean)
+    text_clean = re.sub(r"([,;.\"()!<>:?«»=]+)|'|[ \t]{2,}", lambda m : "" if m.group(1) else " " , text_clean)
     text_clean = re.sub(r"\d+", "", text_clean)
     return text_clean
 
+def tokenize(text):
+    """
+    Découpe le texte en mots individuels
+    
+    Paramètres:
+        text: str - texte nettoyé
+    
+    Retour:
+        list - liste de mots
+    """
+    return text.split()
 
 
+text = "L'Intelligence Artificielle (IA) est fascinante! Elle transforme notre monde."
+red = tokenize(preprocess_text(text))
+print(red) 
 
 
 
