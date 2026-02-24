@@ -1,7 +1,7 @@
 import re
 import string
 
-def preprocess_text(text) -> str:
+def preprocess_text(text: str) -> str:
     """
     Nettoie et prépare le texte pour la vectorisation
     
@@ -22,7 +22,7 @@ def preprocess_text(text) -> str:
     text_clean = re.sub(r"\d+", "", text_clean)
     return text_clean
 
-def tokenize(text) -> list:
+def tokenize(text: str) -> list:
     """
     Découpe le texte en mots individuels
     
@@ -34,7 +34,7 @@ def tokenize(text) -> list:
     """
     return text.split()
 
-def build_vocabulary(documents) -> dict:
+def build_vocabulary(documents: list[str]) -> dict:
     """
     Construit le vocabulaire complet à partir de tous les documents
     

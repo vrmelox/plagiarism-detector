@@ -1,6 +1,7 @@
 import numpy as np
 from collections import Counter
-from preprocessing import tokenize
+from preprocessing import tokenize, build_vocabulary
+from math import log
 
 def text_to_vector(text, vocabulary) -> np.ndarray:
     """
@@ -25,3 +26,59 @@ def text_to_vector(text, vocabulary) -> np.ndarray:
         if token in vocabulary:
             vector[vocabulary[token]] = count
     return vector
+
+def compute_tf(text) -> dict:
+    """
+    Calcule la fréquence relative de chaque mot dans le document
+    
+    TF(mot) = (nombre d'occurrences du mot) / (nombre total de mots)
+    
+    Paramètres:
+        text: str - texte du document
+    
+    Retour:
+        dict - {mot: tf_score}
+    
+    Exemple:
+        text = "le chat mange le poisson"
+        # "le" apparaît 2 fois sur 5 mots total
+        result = {"le": 0.4, "chat": 0.2, "mange": 0.2, "poisson": 0.2}
+    """
+    tokens = tokenize(text)
+    token_counters = Counter(tokens)
+    text_tf = {}
+    for word, count in token_counters.items():
+        text_tf.update({word: count/len(tokens)})
+    return text_tf
+
+
+def compute_idf(documents: list[str]) -> dict:
+    """
+    Calcule l'IDF pour chaque mot du corpus
+    
+    IDF(mot) = log(nombre_total_documents / nombre_documents_contenant_le_mot)
+    
+    Paramètres:
+        documents: list of str - tous les documents
+    
+    Retour:
+        dict - {mot: idf_score}
+    
+    Exemple:
+        docs = [
+            "le chat mange",
+            "le chien dort",
+            "le chat dort"
+        ]
+        # "le" apparaît dans 3/3 docs: IDF = log(3/3) = 0
+        # "chat" apparaît dans 2/3 docs: IDF = log(3/2) ≈ 0.176
+        # "mange" apparaît dans 1/3 docs: IDF = log(3/1) ≈ 0.477
+    """
+    text_idf = {}
+    vocabulary = build_vocabulary(documents)
+    for x in vocabulary:
+        for k in documents:
+            if x in k: 
+                text_idf[x] += 1
+        text_idf[x] = log(len(documents)/text_idf[x])
+    return text_idf
