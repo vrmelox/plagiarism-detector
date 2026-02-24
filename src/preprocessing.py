@@ -1,7 +1,7 @@
 import re
 import string
 
-def preprocess_text(text):
+def preprocess_text(text) -> str:
     """
     Nettoie et prépare le texte pour la vectorisation
     
@@ -22,7 +22,7 @@ def preprocess_text(text):
     text_clean = re.sub(r"\d+", "", text_clean)
     return text_clean
 
-def tokenize(text):
+def tokenize(text) -> list:
     """
     Découpe le texte en mots individuels
     
@@ -34,7 +34,7 @@ def tokenize(text):
     """
     return text.split()
 
-def build_vocabulary(documents):
+def build_vocabulary(documents) -> dict:
     """
     Construit le vocabulaire complet à partir de tous les documents
     
@@ -52,7 +52,8 @@ def build_vocabulary(documents):
     for x in documents:
         for value, index in enumerate(x):
             if vocabulary.get(value, 0) == 0:
-                vocabulary.update({value: index}) 
+                vocabulary.update({value: index})
+    return vocabulary
 
 
 text = "L'Intelligence Artificielle (IA) est fascinante! Elle transforme notre monde."
