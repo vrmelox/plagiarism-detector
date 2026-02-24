@@ -1,7 +1,7 @@
 import numpy as np
 from collections import Counter
 from preprocessing import tokenize, build_vocabulary
-from math import log
+from math import log, sqrt
 
 def text_to_vector(text, vocabulary) -> np.ndarray:
     """
@@ -103,3 +103,15 @@ def compute_tfidf(document, all_documents):
         text_tfidf[x] = text_tf[x] * texts_idf[x]
     return text_tfidf
     
+def normalize_vector(vector) -> np.ndarray:
+    """
+    Transforme un vecteur en vecteur unitaire (norme = 1)
+    
+    Paramètres:
+        vector: numpy array
+    
+    Retour:
+        numpy array - vecteur de norme 1
+    """
+    norm = sqrt(sum([x**2 for x in vector]))
+    return np.ndarray(vector)/norm
