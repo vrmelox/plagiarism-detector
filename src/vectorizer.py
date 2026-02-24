@@ -82,3 +82,24 @@ def compute_idf(documents: list[str]) -> dict:
                 text_idf[x] += 1
         text_idf[x] = log(len(documents)/text_idf[x])
     return text_idf
+
+def compute_tfidf(document, all_documents):
+    """
+    Calcule le vecteur TF-IDF pour un document
+    
+    TF-IDF(mot) = TF(mot) × IDF(mot)
+    
+    Paramètres:
+        document: str - le document à vectoriser
+        all_documents: list of str - tous les documents (pour calculer IDF)
+    
+    Retour:
+        dict - {mot: tfidf_score}
+    """
+    text_tfidf = {}
+    text_tf = compute_tf(document)
+    texts_idf = compute_idf(all_documents)
+    for x in text_tf:
+        text_tfidf[x] = text_tf[x] * texts_idf[x]
+    return text_tfidf
+    
