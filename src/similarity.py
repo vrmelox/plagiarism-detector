@@ -1,11 +1,12 @@
 import numpy as np
 
-def tfidf_dict_to_vector(tfidf_dict, vocabulary):
+def tfidf_dict_to_vector(tfidf_dict: dict, vocabulary: dict) -> np.ndarray:
     """Convertit un dictionnaire TF-IDF en vecteur aligné"""
     vector = np.zeros(len(vocabulary))
-    for x in vocabulary:
-        value = tfidf_dict.get(x,0)
-        vector[x] = value if value != 0 else 0.0
+    for x, value in tfidf_dict.items() :
+        if x in vocabulary:
+            vector[vocabulary[x]] = value
+    return vector
 
 def build_similarity_matrix(documents):
     """
@@ -25,6 +26,7 @@ def build_similarity_matrix(documents):
         La diagonale = 1.00 (un doc est identique à lui-même)
         [0,1] = 0.45 signifie que doc0 et doc1 ont 45% de similarité
     """
+    
     # VOTRE CODE ICI
     # Étapes :
     # 1. Vectoriser tous les documents (TF-IDF)
