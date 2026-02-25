@@ -1,6 +1,6 @@
 import numpy as np
 from collections import Counter
-from preprocessing import tokenize, build_vocabulary
+from preprocessing import tokenize, build_vocabulary, preprocess_text
 from math import log, sqrt
 
 def text_to_vector(text, vocabulary) -> np.ndarray:
@@ -27,7 +27,7 @@ def text_to_vector(text, vocabulary) -> np.ndarray:
             vector[vocabulary[token]] = count
     return vector
 
-def compute_tf(text) -> dict:
+def compute_tf(document) -> dict:
     """
     Calcule la fréquence relative de chaque mot dans le document
     
@@ -44,7 +44,7 @@ def compute_tf(text) -> dict:
         # "le" apparaît 2 fois sur 5 mots total
         result = {"le": 0.4, "chat": 0.2, "mange": 0.2, "poisson": 0.2}
     """
-    tokens = tokenize(text)
+    tokens = tokenize(preprocess_text(document))
     token_counters = Counter(tokens)
     text_tf = {}
     for word, count in token_counters.items():
@@ -76,9 +76,11 @@ def compute_idf(documents: list[str]) -> dict:
     """
     text_idf = {}
     vocabulary = build_vocabulary(documents)
+    docu_process = [preprocess_text(doc) for doc in documents]
     for x in vocabulary:
-        for k in documents:
-            if x in k: 
+        text_idf[x] = 0
+        for k in docu_process:
+            if x in k:
                 text_idf[x] += 1
         text_idf[x] = log(len(documents)/text_idf[x])
     return text_idf
@@ -114,4 +116,4 @@ def normalize_vector(vector) -> np.ndarray:
         numpy array - vecteur de norme 1
     """
     norm = sqrt(sum([x**2 for x in vector]))
-    return np.ndarray(vector)/norm
+    return vector/norm

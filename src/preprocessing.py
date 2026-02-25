@@ -49,13 +49,12 @@ def build_vocabulary(documents: list[str]) -> dict:
         vocab = {"le": 0, "chat": 1, "chien": 2, "mange": 3}
     """
     documents_cleaned = [tokenize(preprocess_text(doc)) for doc in documents]
-    
     uniques = set()
     vocabulary = {}
     for value in documents_cleaned:
         for x in value:
             uniques.add(x)
-    for value, index in enumerate(uniques):
+    for index, value in enumerate(uniques):
         vocabulary.update({value: index})
     return vocabulary
 

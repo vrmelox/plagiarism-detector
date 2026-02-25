@@ -21,6 +21,7 @@ def detect_plagiarism(documents, threshold=0.7):
         ]
     """
     similars = build_similarity_matrix(documents)
+    print(similars)
     similars = np.triu(similars, k=1)
     indices = np.where(similars > threshold)
     similarities = [
@@ -41,11 +42,14 @@ def generate_report(filenames, plagiarism_pairs):
     Retour:
         str - rapport formaté
     """
-    matrix = detect_plagiarism(filenames)
     report = ""
-    for i, j, similarity in matrix:
+    for i, j, similarity in plagiarism_pairs:
         report += f"⚠️  PLAGIAT DÉTECTÉ ⚠️\n\n"
         report += f"Paire {i}: {filenames[i]} ↔ {filenames[j]}\n"
         report += f"Similarité: {similarity*100}%\n"
         report += f"Niveau: {'Plagiat quasi-certain (copie massive)' if similarity > 0.9 else 'Plagiat probable (investigation nécessaire)' if similarity > 0.7 else 'Similarité suspecte (vérification manuelle)' if similarity > 0.5 else 'Probablement distinct'}\n\n"
+    if len(plagiarism_pairs) == 0:
+        report += "Aucun plagiat détecté"
+    with open("results.txt", "w", encoding="utf-8") as f:
+        f.write(report)
     return report
