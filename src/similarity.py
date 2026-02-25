@@ -1,4 +1,7 @@
 import numpy as np
+from preprocessing import build_vocabulary
+from vectorizer import compute_tfidf, normalize_vector
+from utils import dot_product, norma
 
 def tfidf_dict_to_vector(tfidf_dict: dict, vocabulary: dict) -> np.ndarray:
     """Convertit un dictionnaire TF-IDF en vecteur aligné"""
@@ -26,9 +29,15 @@ def build_similarity_matrix(documents):
         La diagonale = 1.00 (un doc est identique à lui-même)
         [0,1] = 0.45 signifie que doc0 et doc1 ont 45% de similarité
     """
+    vocabulary = build_vocabulary(documents)
+    documents_tfidf = [compute_tfidf(x, documents) for x in documents]
+    list_vector = [normalize_vector(tfidf_dict_to_vector(x, vocabulary)) for x in documents_tfidf]
+    matrix = np.zeros((len(documents), len(documents)))
     
-    # VOTRE CODE ICI
-    # Étapes :
-    # 1. Vectoriser tous les documents (TF-IDF)
-    # 2. Normaliser tous les vecteurs
-    # 3. Calculer cosine similarity pour chaque paire
+    for x in range(len(list_vector)):
+        for i in range(len(matrix)):
+            a = list_vector[x]
+            b = list_vector[i]
+            matrix[x][i] = dot_product(a, b) / (norma(a) * norma(b))
+    return matrix
+
