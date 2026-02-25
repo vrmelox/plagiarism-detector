@@ -48,9 +48,11 @@ def build_vocabulary(documents: list[str]) -> dict:
         docs = ["le chat mange", "le chien mange"]
         vocab = {"le": 0, "chat": 1, "chien": 2, "mange": 3}
     """
+    documents_cleaned = [tokenize(preprocess_text(doc)) for doc in documents]
+    
     uniques = set()
     vocabulary = {}
-    for value in documents:
+    for value in documents_cleaned:
         for x in value:
             uniques.add(x)
     for value, index in enumerate(uniques):
@@ -58,9 +60,17 @@ def build_vocabulary(documents: list[str]) -> dict:
     return vocabulary
 
 
-text = "L'Intelligence Artificielle (IA) est fascinante! Elle transforme notre monde."
-red = tokenize(preprocess_text(text))
-print(red) 
+# text = "L'Intelligence Artificielle (IA) est fascinante! Elle transforme notre monde."
+# onetext = """L'intelligence artificielle transforme notre société de manière profonde. Les algorithmes 
+# """
+# twotext = """Les algorithmes d'apprentissage automatique permettent désormais de résoudre des problèmes complexes dans 
+# des domaines variés. La médecine bénéficie de diagnostics plus précis grâce aux réseaux 
+# de neurones. Les véhicules autonomes promettent de révolutionner le transport. Cependant, 
+# ces avancées soulèvent des questions éthiques importantes concernant la vie privée et 
+# l'emploi. Il est                 crucial de développer ces technologies de façon responsable."""
+# docs = [text, onetext, twotext]
+# red = tokenize(preprocess_text(text))
+# print(build_vocabulary(docs)) 
 
 
 
