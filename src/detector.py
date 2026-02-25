@@ -22,10 +22,10 @@ def detect_plagiarism(documents, threshold=0.7):
     """
     similars = build_similarity_matrix(documents)
     similars = np.triu(similars, k=1)
-    similarities = []
-    for x in similars:
-        for y in x:
-            if y > threshold:
-                similarities.append((similars.index(x), similars.index(y), y))
+    indices = np.where(similars > threshold)
+    similarities = [
+        (i, j, similars[i, j])
+        for i, j, in zip(indices[0], indices[1])
+    ]
     similarities.sort(key=lambda x: x[2], reverse=True)
     return similarities
