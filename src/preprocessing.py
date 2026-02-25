@@ -48,11 +48,13 @@ def build_vocabulary(documents: list[str]) -> dict:
         docs = ["le chat mange", "le chien mange"]
         vocab = {"le": 0, "chat": 1, "chien": 2, "mange": 3}
     """
+    uniques = set()
     vocabulary = {}
-    for x in documents:
-        for value, index in enumerate(x):
-            if vocabulary.get(value, 0) == 0:
-                vocabulary.update({value: index})
+    for value in documents:
+        for x in value:
+            uniques.add(x)
+    for value, index in enumerate(uniques):
+        vocabulary.update({value: index})
     return vocabulary
 
 
